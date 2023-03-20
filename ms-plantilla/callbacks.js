@@ -17,7 +17,7 @@ const client = new faunadb.Client({
     secret: 'fnAE-8tCzpACWVpWtKMHGDigKcNBKQuG4bWxc_ql',
 });
 
-const COLLECTION = "¿¿¿ COLECCION ???"
+const COLLECTION = "Hockey_sobre_hierba"
 
 // CALLBACKS DEL MODELO
 
@@ -61,6 +61,21 @@ const CB_MODEL_SELECTS = {
         }
     },
 
+    listaJugadoresEquipos: async (req, res) => {
+        try {
+            let personas = await client.query(
+                q.Map(
+                    q.Paginate(q.Documents(q.Collection(COLLECTION))),
+                    q.Lambda("X", q.Get(q.Var("X")))
+                )
+            )
+            CORS(res)
+                    .status(200)
+                    .json(personas)
+        } catch(error) {
+            CORS(res).status(500).json({ error: error.description})
+        }
+    },
 }
 
 
@@ -95,7 +110,7 @@ const CB_OTHERS = {
                 mensaje: "Microservicio MS Plantilla: acerca de",
                 autor: "Javier Torres Gálvez",
                 email: "jtg00023@red.ujaen.es",
-                fecha: "7/3/2023"
+                fecha: "Marzo - 2023"
             });
         } catch (error) {
             CORS(res).status(500).json({ error: error.description })

@@ -12,6 +12,7 @@ const elementoTitulo = document.getElementById(Frontend.ID_SECCION_PRINCIPAL_TIT
 const elementoContenido = document.getElementById(Frontend.ID_SECCION_PRINCIPAL_CONTENIDO)
 const TITULO_HOME = "Plantilla Home"
 const TITULO_ACERCA_DE = "Plantilla Acerca de"
+const TITULO_LISTA_JUGADORES_EQUIPOS = "Plantilla Lista Jugadores/equipos"
 
 const datosDescargadosPrueba = {
     mensaje: "Mensaje de prueba descargado",
@@ -123,6 +124,15 @@ describe("Plantilla.mostrarAcercaDe: ", function () {
         })
 })
 
+/*describe("Plantilla.mostrarJugadoresEquipos: ", function () {
+    it("muestra datos nulos cuando le pasamos un valor nulo",
+        function () {
+            Plantilla.mostrarJugadoresEquipos()
+            expect(elementoTitulo.innerHTML).toBe(TITULO_LISTA_JUGADORES_EQUIPOS)
+            expect(elementoContenido.innerHTML.search(Plantilla.datosDescargadosNulos.mensaje))
+        })
+})
+*/
 
 /*
 IMPORTANTE
