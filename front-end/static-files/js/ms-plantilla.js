@@ -97,41 +97,41 @@ Plantilla.mostrarAcercaDe = function (datosDescargados) {
  * Crea la cabecera para mostrar la info como tabla
  * @returns Cabecera de la tabla
  */
-/*Proyectos.cabeceraTable = function () {
-    return `<table class="listado-proyectos">
+Plantilla.cabeceraTable = function () {
+    return `<table class="listado">
         <thead>
         <th>Nombre</th>
         </thead>
         <tbody>
     `;
-}*/
+}
 
 /**
  * Muestra la información de cada proyecto en un elemento TR con sus correspondientes TD
  * @param {proyecto} p Datos del proyecto a mostrar
  * @returns Cadena conteniendo todo el elemento TR que muestra el proyecto.
  */
-/*Proyectos.cuerpoTr = function (p) {
+Plantilla.cuerpoTr = function (p) {
     const d = p.data
 
-    return `<tr>
-    <td><em>${d.nombre}</em></td>
+    return `<tr title="${p.ref['@ref'].id}">
+    <td>${d.nombre}</td>
     </tr>
     `;
-}*/
+}
 
 /**
  * Pie de la tabla en la que se muestran las personas
  * @returns Cadena con el pie de la tabla
  */
-/*Proyectos.pieTable = function () {
-    return "</tbody></table>";
-}*/
+Plantilla.pieTable = function () {
+    return `</tbody></table>`;
+}
 
-Plantilla.mostrarJugadoresEquipos = function (datosDescargados) {    
+Plantilla.mostrarJugadoresEquipos = function (datosDescargados) {   
     let msj = "";
     msj += Plantilla.cabeceraTable();
-    datosDescargados.forEach(e => msj += Plantilla.cuerpoTr(e))
+    datosDescargados.data.forEach(e => msj += Plantilla.cuerpoTr(e))
     msj += Plantilla.pieTable();
 
     Frontend.Article.actualizar("Plantilla Lista Jugadores/equipos", msj)
