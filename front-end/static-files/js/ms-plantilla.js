@@ -106,6 +106,15 @@ Plantilla.cabeceraTable = function () {
     `;
 }
 
+Plantilla.cabeceraTableTodos = function () {
+    return `<table class="listado">
+        <thead>
+        <th>Nombre</th><th>Apellido</th><th>Equipo</th><th>Fecha de Nacimiento</th><th>Partidos Jugados</th><th>Años participaciones JJOO</th>
+        </thead>
+        <tbody>
+    `;
+}
+
 /**
  * Muestra la información de cada proyecto en un elemento TR con sus correspondientes TD
  * @param {proyecto} p Datos del proyecto a mostrar
@@ -120,6 +129,29 @@ Plantilla.cuerpoTr = function (p) {
     `;
 }
 
+Plantilla.cuerpoTodosDatosTr = function (p) {
+    const d = p.data
+    const fechaN = d.f_nacimiento;
+    let msj = Plantilla.cabeceraTableTodos();
+
+    msj += `<tr title="${p.ref['@ref'].id}">
+    <td>${d.nombre}</td>
+    <td>${d.apellido}</td>
+    <td>${d.equipo}</td>
+    <td>${fechaN.dia}/${fechaN.mes}/${fechaN.anio}</td>
+    <td>${d.partidos_jugados}</td>
+    <td>`
+
+	
+		for (var i = 0; i < d.anios_participaciones_jjoo.length; i++) {
+			msj += '<li>'+d.anios_participaciones_jjoo[i]+'</li>';
+		}
+    msj += `</td></tr>
+    `;
+    msj += Plantilla.pieTable();
+    return msj;
+}
+
 /**
  * Pie de la tabla en la que se muestran las personas
  * @returns Cadena con el pie de la tabla
@@ -128,6 +160,10 @@ Plantilla.pieTable = function () {
     return `</tbody></table>`;
 }
 
+/**
+ * Muestra un listado del nombre de los jugadores
+ * @param {*} datosDescargados 
+ */
 Plantilla.mostrarJugadoresEquipos = function (datosDescargados) {   
     let msj = "";
     msj += Plantilla.cabeceraTable();
@@ -135,6 +171,17 @@ Plantilla.mostrarJugadoresEquipos = function (datosDescargados) {
     msj += Plantilla.pieTable();
 
     Frontend.Article.actualizar("Plantilla Lista Jugadores/equipos", msj)
+}
+
+/**
+ * Muestra todos los datos de los jugadores
+ * @param {*} datosDescargados 
+ */
+Plantilla.mostrarJugadoresDatos = function (datosDescargados) {   
+    let msj = "";
+    datosDescargados.data.forEach(e => msj += Plantilla.cuerpoTodosDatosTr(e))
+
+    Frontend.Article.actualizar("Plantilla Lista Datos Jugadores", msj)
 }
 
 /**
@@ -158,3 +205,9 @@ Plantilla.procesarlistaJugadoresEquipos = function () {
     this.descargarRuta("/plantilla/listaJugadoresEquipos", this.mostrarJugadoresEquipos);
 }
 
+/**
+ * 
+ */
+Plantilla.procesarlistaDatosJugadores = function () {
+    this.descargarRuta("/plantilla/listaJugadoresEquiposTodos", this.mostrarJugadoresDatos);
+}

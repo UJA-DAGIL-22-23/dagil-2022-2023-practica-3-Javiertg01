@@ -124,15 +124,55 @@ describe("Plantilla.mostrarAcercaDe: ", function () {
         })
 })
 
-/*describe("Plantilla.mostrarJugadoresEquipos: ", function () {
-    it("muestra datos nulos cuando le pasamos un valor nulo",
+/*let p = { data: d }
+
+describe("cuerpoTr ", function () {
+
+    // Preparo los datos
+    let d = {
+        
+        nombre: "el nombre del proyecto"
+        , datos_personas: [
+            {
+                ref: {
+                    "@ref": {
+                        id: "ref persona 1"
+                    }
+                },
+                data: {
+                    nombre: "Nombre persona 1",
+                    apellidos: "Apellidos persona 1"
+                }
+            },
+            {
+                ref: {
+                    "@ref": {
+                        id: "ref persona 2"
+                    }
+                },
+                data: {
+                    nombre: "Nombre persona 2",
+                    apellidos: "Apellidos persona 2"
+                }
+            },
+
+        ]
+    }
+
+    let p = { data: d }
+
+    it("debería devolver una fila de tabla con nombres de los jugadores",
         function () {
-            Plantilla.mostrarJugadoresEquipos()
-            expect(elementoTitulo.innerHTML).toBe(TITULO_LISTA_JUGADORES_EQUIPOS)
-            expect(elementoContenido.innerHTML.search(Plantilla.datosDescargadosNulos.mensaje))
-        })
-})
-*/
+            let msj = Plantilla.cuerpoTr(p)
+            expect(msj.includes(d.nombre)).toBeTrue()
+            for (let i = 0; i < d.datos_personas.length; ++i) {
+                let persona = d.datos_personas[i]
+                expect(msj.includes(persona.ref["@ref"].id)).toBeTrue();
+                expect(msj.includes(persona.data.nombre)).toBeTrue();
+        }
+    })
+})*/
+
 
 /*
 IMPORTANTE

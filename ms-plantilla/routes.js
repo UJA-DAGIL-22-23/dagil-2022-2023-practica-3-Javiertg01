@@ -58,6 +58,17 @@ router.get("/listaJugadoresEquipos", async (req, res) => {
     }
 });
 
+/**
+ * Ruta Lista (es decir, About...)
+ */
+router.get("/listaJugadoresEquiposTodos", async (req, res) => {
+    try {
+        await callbacks.listaJugadoresEquiposTodos(req, res)
+    } catch (error) {
+        console.log(error);
+    }
+});
+
 
 
 
