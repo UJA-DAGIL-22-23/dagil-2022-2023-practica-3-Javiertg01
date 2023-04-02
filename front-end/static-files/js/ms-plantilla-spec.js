@@ -124,54 +124,37 @@ describe("Plantilla.mostrarAcercaDe: ", function () {
         })
 })
 
-/*let p = { data: d }
+describe("Pie table ", function () {
+    it("debería devolver las etiquetas HTML para el pie de tabla",
+        function () {
+            expect(Plantilla.pieTable()).toBe("</tbody></table>");
+        });
+});
 
-describe("cuerpoTr ", function () {
+describe("CuerpoTr ", function () {
 
     // Preparo los datos
     let d = {
-        
-        nombre: "el nombre del proyecto"
-        , datos_personas: [
-            {
-                ref: {
-                    "@ref": {
-                        id: "ref persona 1"
-                    }
-                },
-                data: {
-                    nombre: "Nombre persona 1",
-                    apellidos: "Apellidos persona 1"
-                }
-            },
-            {
-                ref: {
-                    "@ref": {
-                        id: "ref persona 2"
-                    }
-                },
-                data: {
-                    nombre: "Nombre persona 2",
-                    apellidos: "Apellidos persona 2"
-                }
-            },
-
-        ]
+        nombre: "Nombre jugador 1"
+        , apellidos: "Apellido 1"
     }
 
-    let p = { data: d }
+    let p = { 
+        data: d
+        , ref: {
+            "@ref": {
+                id: "ref persona 1"
+            }
+        }
+    }
 
-    it("debería devolver una fila de tabla con nombres de los jugadores",
+    it("debería devolver una fila de tabla con los datos del jugador asociado",
         function () {
             let msj = Plantilla.cuerpoTr(p)
-            expect(msj.includes(d.nombre)).toBeTrue()
-            for (let i = 0; i < d.datos_personas.length; ++i) {
-                let persona = d.datos_personas[i]
-                expect(msj.includes(persona.ref["@ref"].id)).toBeTrue();
-                expect(msj.includes(persona.data.nombre)).toBeTrue();
-        }
-    })
-})*/
+            console.log(msj);
+            expect(msj.includes(d.nombre)).toBeTrue();
+        });
+});
 
 
 /*
