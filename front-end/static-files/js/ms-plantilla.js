@@ -141,8 +141,6 @@ Plantilla.cuerpoTodosDatosTr = function (p) {
     <td>${fechaN.dia}/${fechaN.mes}/${fechaN.anio}</td>
     <td>${d.partidos_jugados}</td>
     <td>`
-
-	
 		for (var i = 0; i < d.anios_participaciones_jjoo.length; i++) {
 			msj += '<li>'+d.anios_participaciones_jjoo[i]+'</li>';
 		}

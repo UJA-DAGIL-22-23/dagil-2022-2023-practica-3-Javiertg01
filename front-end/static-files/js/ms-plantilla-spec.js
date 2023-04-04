@@ -135,8 +135,38 @@ describe("CuerpoTr ", function () {
 
     // Preparo los datos
     let d = {
-        nombre: "Nombre jugador 1"
-        , apellidos: "Apellido 1"
+        nombre: "Nombre 1"
+    }
+
+    let p = { 
+        data: d
+        , ref: {
+            "@ref": {
+                id: "ref persona 1"
+            }
+        }
+    }
+
+    it("debería devolver una fila de tabla con el nombre del jugador asociado",
+        function () {
+            let msj = Plantilla.cuerpoTr(p)
+            console.log(msj);
+            expect(msj.includes(d.nombre)).toBeTrue();
+        });
+});
+
+describe("cuerpoTodosDatosTr ", function () {
+
+    // Preparo los datos
+    let d = {
+        nombre: "Nombre 1"
+        , apellido: "Apellido 1"
+        , equipo: "Equipo"
+        , f_nacimiento: { dia: 123, mes: 245, anio: 3024 }
+        , partidos_jugados: 123
+        , anios_participaciones_jjoo: [
+            1234, 1235, 1236
+        ]
     }
 
     let p = { 
@@ -150,9 +180,16 @@ describe("CuerpoTr ", function () {
 
     it("debería devolver una fila de tabla con los datos del jugador asociado",
         function () {
-            let msj = Plantilla.cuerpoTr(p)
+            let msj = Plantilla.cuerpoTodosDatosTr(p)
             console.log(msj);
             expect(msj.includes(d.nombre)).toBeTrue();
+            expect(msj.includes(d.apellido)).toBeTrue();
+            expect(msj.includes(d.equipo)).toBeTrue();
+            expect(msj.includes(d.f_nacimiento.dia)).toBeTrue();
+            expect(msj.includes(d.f_nacimiento.mes)).toBeTrue();
+            expect(msj.includes(d.f_nacimiento.anio)).toBeTrue();
+            expect(msj.includes(d.partidos_jugados)).toBeTrue();
+            expect(msj.includes(d.anios_participaciones_jjoo.length)).toBeTrue();
         });
 });
 
