@@ -68,7 +68,7 @@ describe('Servidor PLANTILLA:', () => {
   })
 });
 
-it('Devuelve un vector de tamaño 2 al consultar mediante listaJugadoresEquipos', (done) => {
+it('Devuelve un vector de tamaño 10 al consultar mediante listaJugadoresEquipos', (done) => {
   supertest(app)
     .get('/listaJugadoresEquipos')
     .expect(200)
@@ -81,7 +81,7 @@ it('Devuelve un vector de tamaño 2 al consultar mediante listaJugadoresEquipos'
     );
 });
 
-it('Devuelve un vector de tamaño 2 al consultar mediante listaJugadoresEquiposTodos', (done) => {
+it('Devuelve un vector de tamaño 10 al consultar mediante listaJugadoresEquiposTodos', (done) => {
   supertest(app)
     .get('/listaJugadoresEquiposTodos')
     .expect(200)
@@ -91,6 +91,18 @@ it('Devuelve un vector de tamaño 2 al consultar mediante listaJugadoresEquiposT
       assert(res.body.data.length === 10);
       assert(res.body.data[1].data.hasOwnProperty('anios_participaciones_jjoo'));
       assert(res.body.data[1].data.anios_participaciones_jjoo[0] === 2020);
+    })
+    .end((error) => {error ? done.fail(error) : done(); }
+    );
+});
+
+it('Devuelve un vector de tamaño 2 al consultar mediante listaJugadoresAlfabetica', (done) => {
+  supertest(app)
+    .get('/listaJugadoresAlfabetica')
+    .expect(200)
+    .expect('Content-Type', /json/)
+    .expect(function (res) {
+
     })
     .end((error) => {error ? done.fail(error) : done(); }
     );

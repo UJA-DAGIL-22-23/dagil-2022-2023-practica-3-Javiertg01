@@ -183,6 +183,27 @@ Plantilla.mostrarJugadoresDatos = function (datosDescargados) {
 }
 
 /**
+ * 
+ * @param {*} datosDescargados 
+ */
+Plantilla.mostrarJugadoresAlfabetica = function (datosDescargados) {
+    var datosOrdenados = sortJSON(datosDescargados.data);
+    let msj = "";
+    msj += Plantilla.cabeceraTable();
+    datosOrdenados.forEach(e => msj += Plantilla.cuerpoTr(e))
+    msj += Plantilla.pieTable();
+    
+    Frontend.Article.actualizar("Plantilla Añadir jugador", msj)
+}
+
+function sortJSON(data) {
+    return data.sort(function (a, b) {
+        return a.data.partidos_jugados - b.data.partidos_jugados;
+      
+    });
+}
+
+/**
  * Función principal para responder al evento de elegir la opción "Home"
  */
 Plantilla.procesarHome = function () {
@@ -204,8 +225,15 @@ Plantilla.procesarlistaJugadoresEquipos = function () {
 }
 
 /**
- * 
+ * Función principal para responder al evento de elegir la opción "Listar datos Jugadores/Equipos"
  */
 Plantilla.procesarlistaDatosJugadores = function () {
     this.descargarRuta("/plantilla/listaJugadoresEquiposTodos", this.mostrarJugadoresDatos);
+}
+
+/**
+ * 
+ */
+Plantilla.procesarJugadoresAlfabetica = function () {
+    this.descargarRuta("/plantilla/listaJugadoresAlfabetica", this.mostrarJugadoresAlfabetica);
 }
