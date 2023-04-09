@@ -197,10 +197,18 @@ Plantilla.mostrarJugadoresAlfabetica = function (datosDescargados) {
 }
 
 function sortJSON(data) {
-    return data.sort(function (a, b) {
-        return a.data.partidos_jugados - b.data.partidos_jugados;
+    return data.sort(function(a, b) {
+  
+        var nameA = a.data.nombre.toUpperCase();
+        var nameB = b.data.nombre.toUpperCase();
+        
+        if (nameA < nameB) {     return -1;   }      if (nameA > nameB) {
+          return 1;
+        }
       
-    });
+        return 0;
+      
+      });
 }
 
 /**

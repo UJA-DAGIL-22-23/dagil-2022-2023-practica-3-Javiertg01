@@ -96,13 +96,13 @@ it('Devuelve un vector de tamaño 10 al consultar mediante listaJugadoresEquipos
     );
 });
 
-it('Devuelve un vector de tamaño 2 al consultar mediante listaJugadoresAlfabetica', (done) => {
+it('Devuelve un vector de tamaño 10 al consultar mediante listaJugadoresAlfabetica', (done) => {
   supertest(app)
     .get('/listaJugadoresAlfabetica')
     .expect(200)
     .expect('Content-Type', /json/)
     .expect(function (res) {
-
+      assert(res.body.data.length === 10);
     })
     .end((error) => {error ? done.fail(error) : done(); }
     );
