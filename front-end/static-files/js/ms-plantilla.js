@@ -208,15 +208,11 @@ Plantilla.mostrarJugadoresPorCampo = function (datosDescargados) {
     <option>-Seleccione campo-</option>
     <option value="nombre">Nombre</option>
     <option value="apellido">Apellido</option>
+    <option value="equipo">Equipo</option>
     <option value="f_nacimiento">Fecha de Nacimiento</option>
     <option value="partidos_jugados">Partidos Jugados</option>
     <option value="anios_participaciones_jjoo">A&ntildeos participaciones JJOO</option>
-    </select>
-    <table class="listado">
-    <thead>
-    <th>Nombre</th><th>Apellido</th><th>Equipo</th><th>Fecha de Nacimiento</th><th>Partidos Jugados</th><th>A&ntildeos participaciones JJOO</th>
-    </thead>
-    <tbody>`
+    </select>`
     var datosOrdenados = sortNombre(datosDescargados.data);
     if(campo === 'nombre'){
         var datosOrdenados = sortNombre(datosDescargados.data);
@@ -224,9 +220,20 @@ Plantilla.mostrarJugadoresPorCampo = function (datosDescargados) {
     if(campo === 'apellido'){
         var datosOrdenados = sortApellido(datosDescargados.data);
     }
+    if(campo === 'equipo'){
+        var datosOrdenados = sortEquipo(datosDescargados.data);
+    }
+    if(campo === 'partidos_jugados'){
+        var datosOrdenados = sortPartidos(datosDescargados.data);
+    }
+    if(campo === 'f_nacimiento'){
+        var datosOrdenados = sortNacimiento(datosDescargados.data);
+    }
+    if(campo === 'anios_participaciones_jjoo'){
+        var datosOrdenados = sortJJOO(datosDescargados.data);
+    }
     
     datosOrdenados.forEach(e => msj += Plantilla.cuerpoTodosDatosTr(e))
-    msj += Plantilla.pieTable();
     
     Frontend.Article.actualizar("Plantilla mostrar datos por campo", msj)
 }
@@ -262,6 +269,63 @@ function sortApellido(data) {
         }
       
         return 0;
+      
+      });
+}
+
+function sortEquipo(data) {
+    return data.sort(function(a, b) {
+  
+        var nameA = a.data.equipo.toUpperCase();
+        var nameB = b.data.equipo.toUpperCase();
+        
+        if (nameA < nameB) {     return -1;   }      if (nameA > nameB) {
+          return 1;
+        }
+      
+        return 0;
+      
+      });
+}
+
+function sortPartidos(data) {
+    return data.sort(function(a, b) {
+
+        return b.data.partidos_jugados - a.data.partidos_jugados;
+      
+      });
+}
+
+function sortNacimiento(data) {
+    return data.sort(function(a, b) {
+
+        if(a.data.f_nacimiento.anio < b.data.f_nacimiento.anio){
+            return -1;
+        }
+        if(a.data.f_nacimiento.anio > b.data.f_nacimiento.anio){
+            return 1;
+        }
+        if(a.data.f_nacimiento.mes < b.data.f_nacimiento.mes){
+            return -1;
+        }
+        if(a.data.f_nacimiento.mes > b.data.f_nacimiento.mes){
+            return 1;
+        }
+        if(a.data.f_nacimiento.dia < b.data.f_nacimiento.dia){
+            return -1;
+        }
+        if(a.data.f_nacimiento.dia > b.data.f_nacimiento.dia){
+            return 1;
+        }
+        return 0;
+      
+      });
+}
+
+function sortJJOO(data) {
+    return data.sort(function(a, b) {
+  
+        return b.data.anios_participaciones_jjoo.length - a.data.anios_participaciones_jjoo.length;
       
       });
 }
