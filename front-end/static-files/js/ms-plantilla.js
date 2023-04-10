@@ -109,7 +109,7 @@ Plantilla.cabeceraTable = function () {
 Plantilla.cabeceraTableTodos = function () {
     return `<table class="listado">
         <thead>
-        <th>Nombre</th><th>Apellido</th><th>Equipo</th><th>Fecha de Nacimiento</th><th>Partidos Jugados</th><th>Años participaciones JJOO</th>
+        <th>Nombre</th><th>Apellido</th><th>Equipo</th><th>Fecha de Nacimiento</th><th>Partidos Jugados</th><th>A&ntildeos participaciones JJOO</th>
         </thead>
         <tbody>
     `;
@@ -187,20 +187,75 @@ Plantilla.mostrarJugadoresDatos = function (datosDescargados) {
  * @param {*} datosDescargados 
  */
 Plantilla.mostrarJugadoresAlfabetica = function (datosDescargados) {
-    var datosOrdenados = sortJSON(datosDescargados.data);
+    var datosOrdenados = sortNombre(datosDescargados.data);
     let msj = "";
     msj += Plantilla.cabeceraTable();
     datosOrdenados.forEach(e => msj += Plantilla.cuerpoTr(e))
     msj += Plantilla.pieTable();
     
-    Frontend.Article.actualizar("Plantilla Añadir jugador", msj)
+    Frontend.Article.actualizar("Plantilla ordenar jugador alfab&eacuteticamente", msj)
 }
 
-function sortJSON(data) {
+let campo = 'nombre';
+
+/**
+ * 
+ * @param {*} datosDescargados 
+ */
+Plantilla.mostrarJugadoresPorCampo = function (datosDescargados) {
+    let msj = "";
+    msj += `<select id="list" name="Campo" onchange="getSelectValue()">
+    <option>-Seleccione campo-</option>
+    <option value="nombre">Nombre</option>
+    <option value="apellido">Apellido</option>
+    <option value="f_nacimiento">Fecha de Nacimiento</option>
+    <option value="partidos_jugados">Partidos Jugados</option>
+    <option value="anios_participaciones_jjoo">A&ntildeos participaciones JJOO</option>
+    </select>
+    <table class="listado">
+    <thead>
+    <th>Nombre</th><th>Apellido</th><th>Equipo</th><th>Fecha de Nacimiento</th><th>Partidos Jugados</th><th>A&ntildeos participaciones JJOO</th>
+    </thead>
+    <tbody>`
+    var datosOrdenados = sortNombre(datosDescargados.data);
+    if(campo === 'nombre'){
+        var datosOrdenados = sortNombre(datosDescargados.data);
+    }
+    if(campo === 'apellido'){
+        var datosOrdenados = sortApellido(datosDescargados.data);
+    }
+    
+    datosOrdenados.forEach(e => msj += Plantilla.cuerpoTodosDatosTr(e))
+    msj += Plantilla.pieTable();
+    
+    Frontend.Article.actualizar("Plantilla mostrar datos por campo", msj)
+}
+
+function getSelectValue(){
+    campo = document.getElementById("list").value;
+    Plantilla.procesarJugadoresPorCampo();
+}
+
+function sortNombre(data) {
     return data.sort(function(a, b) {
   
         var nameA = a.data.nombre.toUpperCase();
         var nameB = b.data.nombre.toUpperCase();
+        
+        if (nameA < nameB) {     return -1;   }      if (nameA > nameB) {
+          return 1;
+        }
+      
+        return 0;
+      
+      });
+}
+
+function sortApellido(data) {
+    return data.sort(function(a, b) {
+  
+        var nameA = a.data.apellido.toUpperCase();
+        var nameB = b.data.apellido.toUpperCase();
         
         if (nameA < nameB) {     return -1;   }      if (nameA > nameB) {
           return 1;
@@ -244,4 +299,8 @@ Plantilla.procesarlistaDatosJugadores = function () {
  */
 Plantilla.procesarJugadoresAlfabetica = function () {
     this.descargarRuta("/plantilla/listaJugadoresAlfabetica", this.mostrarJugadoresAlfabetica);
+}
+
+Plantilla.procesarJugadoresPorCampo = function () {
+    this.descargarRuta("/plantilla/listaJugadoresPorCampo", this.mostrarJugadoresPorCampo);
 }

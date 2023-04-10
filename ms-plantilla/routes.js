@@ -80,5 +80,13 @@ router.get("/listaJugadoresAlfabetica", async (req, res) => {
     }
 });
 
+router.get("/listaJugadoresPorCampo", async (req, res) => {
+    try {
+        await callbacks.listaJugadoresPorCampo(req, res)
+    } catch (error) {
+        console.log(error);
+    }
+});
+
 // Exporto el módulo para poder usarlo en server
 module.exports = router;
