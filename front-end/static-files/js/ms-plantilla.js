@@ -234,7 +234,6 @@ Plantilla.mostrarJugadoresPorCampo = function (datosDescargados) {
     }
     
     datosOrdenados.forEach(e => msj += Plantilla.cuerpoTodosDatosTr(e))
-    
     Frontend.Article.actualizar("Plantilla mostrar datos por campo", msj)
 }
 

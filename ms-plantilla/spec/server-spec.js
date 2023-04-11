@@ -103,6 +103,20 @@ it('Devuelve un vector de tamaño 10 al consultar mediante listaJugadoresAlfabet
     .expect('Content-Type', /json/)
     .expect(function (res) {
       assert(res.body.data.length === 10);
+      assert(res.body.data[0].data.nombre === 'David');
+    })
+    .end((error) => {error ? done.fail(error) : done(); }
+    );
+});
+
+it('Devuelve un vector de tamaño 10 al consultar mediante listaJugadoresPorCampo', (done) => {
+  supertest(app)
+    .get('/listaJugadoresPorCampo')
+    .expect(200)
+    .expect('Content-Type', /json/)
+    .expect(function (res) {
+      assert(res.body.data.length === 10);
+      assert(res.body.data[0].data.partidos_jugados === 281)
     })
     .end((error) => {error ? done.fail(error) : done(); }
     );
