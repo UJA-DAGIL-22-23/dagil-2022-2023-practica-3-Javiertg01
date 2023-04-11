@@ -204,7 +204,7 @@ let campo = 'nombre';
  */
 Plantilla.mostrarJugadoresPorCampo = function (datosDescargados) {
     let msj = "";
-    msj += `<select id="list" name="Campo" onchange="getSelectValue()">
+    msj += `<select id="opcionCampo" name="Campo" onchange="cambiarOpcionCampo()">
     <option>-Seleccione campo-</option>
     <option value="nombre">Nombre</option>
     <option value="apellido">Apellido</option>
@@ -237,8 +237,8 @@ Plantilla.mostrarJugadoresPorCampo = function (datosDescargados) {
     Frontend.Article.actualizar("Plantilla mostrar datos por campo", msj)
 }
 
-function getSelectValue(){
-    campo = document.getElementById("list").value;
+function cambiarOpcionCampo(){
+    campo = document.getElementById("opcionCampo").value;
     Plantilla.procesarJugadoresPorCampo();
 }
 
@@ -329,6 +329,61 @@ function sortJJOO(data) {
       });
 }
 
+Plantilla.mostrarJugadoresDatosUno = function (datosDescargados) {   
+    let msj = "";
+    msj += `<select id="opcionNombre" name="Nombre" onchange="cambiarOpcionNombre()">
+    <option>-Seleccione Jugador-</option>
+    <option value="david">David</option>
+    <option value="alejandro">Alejandro</option>
+    <option value="jose">Jose</option>
+    <option value="marc">Marc</option>
+    <option value="quico">Quico</option>
+    <option value="miquel">Miquel</option>
+    <option value="enrique">Enrique</option>
+    <option value="alvaro">&aacutelvaro</option>
+    <option value="xavi">Xavi</option>
+    <option value="roc">Roc</option>
+    </select>`
+    var i = 0;
+    if(campo === 'david'){
+        i = 0;
+    }
+    if(campo === 'alejandro'){
+        i = 1;
+    }
+    if(campo === 'jose'){
+        i = 2;
+    }
+    if(campo === 'marc'){
+        i = 3;
+    }
+    if(campo === 'quico'){
+        i = 4;
+    }
+    if(campo === 'miquel'){
+        i = 5;
+    }
+    if(campo === 'enrique'){
+        i = 6;
+    }
+    if(campo === 'alvaro'){
+        i = 7;
+    }
+    if(campo === 'xavi'){
+        i = 8;
+    }
+    if(campo === 'roc'){
+        i = 9;
+    }
+    msj += Plantilla.cuerpoTodosDatosTr(datosDescargados.data[i])
+    Frontend.Article.actualizar("Plantilla Lista Datos Jugador", msj)
+}
+
+function cambiarOpcionNombre(){
+    campo = document.getElementById("opcionNombre").value;
+    Plantilla.procesarJugadoresDatosUno();
+}
+
 /**
  * Función principal para responder al evento de elegir la opción "Home"
  */
@@ -366,4 +421,8 @@ Plantilla.procesarJugadoresAlfabetica = function () {
 
 Plantilla.procesarJugadoresPorCampo = function () {
     this.descargarRuta("/plantilla/listaJugadoresPorCampo", this.mostrarJugadoresPorCampo);
+}
+
+Plantilla.procesarJugadoresDatosUno = function () {
+    this.descargarRuta("/plantilla/listaJugadoresDatosUno", this.mostrarJugadoresDatosUno);
 }
