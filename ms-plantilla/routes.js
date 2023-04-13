@@ -96,5 +96,13 @@ router.get("/listaJugadoresDatosUno", async (req, res) => {
     }
 });
 
+router.get("/listaJugadoresDatosClick", async (req, res) => {
+    try {
+        await callbacks.listaJugadoresDatosClick(req, res)
+    } catch (error) {
+        console.log(error);
+    }
+});
+
 // Exporto el módulo para poder usarlo en server
 module.exports = router;

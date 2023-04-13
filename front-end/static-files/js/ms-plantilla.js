@@ -340,7 +340,7 @@ Plantilla.mostrarJugadoresDatosUno = function (datosDescargados) {
     <option value="quico">Quico</option>
     <option value="miquel">Miquel</option>
     <option value="enrique">Enrique</option>
-    <option value="alvaro">&aacutelvaro</option>
+    <option value="alvaro">&Aacutelvaro</option>
     <option value="xavi">Xavi</option>
     <option value="roc">Roc</option>
     </select>`
@@ -384,6 +384,30 @@ function cambiarOpcionNombre(){
     Plantilla.procesarJugadoresDatosUno();
 }
 
+let valor = 0;
+Plantilla.mostrarJugadoresDatosClick = function (datosDescargados) {   
+    let msj = "";
+    msj += `<button id="previo" onclick="anterior()">&laquo; Anterior</button>
+    <button id="siguiente" onclick="siguiente()">Siguiente &raquo;</button>
+    `
+    msj += Plantilla.cuerpoTodosDatosTr(datosDescargados.data[valor])
+    Frontend.Article.actualizar("Plantilla Lista Datos Jugador con un click", msj)
+}
+
+function siguiente(){
+    if(valor != 9){
+        valor = valor+1;
+    }
+    Plantilla.procesarJugadoresDatosClick();
+}
+
+function anterior(){
+    if(valor != 0){
+        valor = valor-1;
+    }
+    Plantilla.procesarJugadoresDatosClick();
+}
+
 /**
  * Función principal para responder al evento de elegir la opción "Home"
  */
@@ -425,4 +449,8 @@ Plantilla.procesarJugadoresPorCampo = function () {
 
 Plantilla.procesarJugadoresDatosUno = function () {
     this.descargarRuta("/plantilla/listaJugadoresDatosUno", this.mostrarJugadoresDatosUno);
+}
+
+Plantilla.procesarJugadoresDatosClick = function () {
+    this.descargarRuta("/plantilla/listaJugadoresDatosClick", this.mostrarJugadoresDatosClick);
 }
