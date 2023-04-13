@@ -183,7 +183,7 @@ Plantilla.mostrarJugadoresDatos = function (datosDescargados) {
 }
 
 /**
- * 
+ * Muestra un listado con los nombres de los jugadores ordenados alfabéticamente
  * @param {*} datosDescargados 
  */
 Plantilla.mostrarJugadoresAlfabetica = function (datosDescargados) {
@@ -199,7 +199,7 @@ Plantilla.mostrarJugadoresAlfabetica = function (datosDescargados) {
 let campo = 'nombre';
 
 /**
- * 
+ * Muestra un listado de datos de jugadores que podemos ordenar por campos
  * @param {*} datosDescargados 
  */
 Plantilla.mostrarJugadoresPorCampo = function (datosDescargados) {
@@ -237,11 +237,19 @@ Plantilla.mostrarJugadoresPorCampo = function (datosDescargados) {
     Frontend.Article.actualizar("Plantilla mostrar datos por campo", msj)
 }
 
+/**
+ * Función llamada cada vez que se cambia el campo en "MostrarJugadoresPorCampo" que cambia
+ * el valor del parámetro campo al valor que se elija en el selector
+ */
 function cambiarOpcionCampo(){
     campo = document.getElementById("opcionCampo").value;
     Plantilla.procesarJugadoresPorCampo();
 }
 
+/**
+ * Función que ordena los datos por nombre
+ * @param {*} data 
+ */
 function sortNombre(data) {
     return data.sort(function(a, b) {
   
@@ -257,6 +265,10 @@ function sortNombre(data) {
       });
 }
 
+/**
+ * Función que ordena los datos por apellido
+ * @param {*} data 
+ */
 function sortApellido(data) {
     return data.sort(function(a, b) {
   
@@ -272,6 +284,10 @@ function sortApellido(data) {
       });
 }
 
+/**
+ * Función que ordena los datos por equipo
+ * @param {*} data 
+ */
 function sortEquipo(data) {
     return data.sort(function(a, b) {
   
@@ -287,6 +303,10 @@ function sortEquipo(data) {
       });
 }
 
+/**
+ * Función que ordena los datos por nº de partidos jugados
+ * @param {*} data 
+ */
 function sortPartidos(data) {
     return data.sort(function(a, b) {
 
@@ -295,6 +315,10 @@ function sortPartidos(data) {
       });
 }
 
+/**
+ * Función que ordena los datos por fecha de nacimiento
+ * @param {*} data 
+ */
 function sortNacimiento(data) {
     return data.sort(function(a, b) {
 
@@ -321,6 +345,10 @@ function sortNacimiento(data) {
       });
 }
 
+/**
+ * Función que ordena los datos por participaciones en los JJOO
+ * @param {*} data 
+ */
 function sortJJOO(data) {
     return data.sort(function(a, b) {
   
@@ -329,6 +357,10 @@ function sortJJOO(data) {
       });
 }
 
+/**
+ * Muestra los datos de un solo jugador a elección
+ * @param {*} datosDescargados 
+ */
 Plantilla.mostrarJugadoresDatosUno = function (datosDescargados) {   
     let msj = "";
     msj += `<select id="opcionNombre" name="Nombre" onchange="cambiarOpcionNombre()">
@@ -379,12 +411,22 @@ Plantilla.mostrarJugadoresDatosUno = function (datosDescargados) {
     Frontend.Article.actualizar("Plantilla Lista Datos Jugador", msj)
 }
 
+/**
+ * Función llamada cada vez que se cambia el campo en "MostrarJugadoresDatosUno" que cambia
+ * el valor del parámetro nombre al valor que se elija en el selector
+ */
 function cambiarOpcionNombre(){
     campo = document.getElementById("opcionNombre").value;
     Plantilla.procesarJugadoresDatosUno();
 }
 
-let valor = 0;
+let valor = 0; //constante para moverse entre los nombres con Anterior y Siguiente
+
+/**
+ * Muestra los datos de un solo jugador a elección permitiendo cambiar entre el siguiente
+ * y el anterior con un solo click
+ * @param {*} datosDescargados 
+ */
 Plantilla.mostrarJugadoresDatosClick = function (datosDescargados) {   
     let msj = "";
     msj += `<button id="previo" onclick="anterior()">&laquo; Anterior</button>
@@ -394,6 +436,9 @@ Plantilla.mostrarJugadoresDatosClick = function (datosDescargados) {
     Frontend.Article.actualizar("Plantilla Lista Datos Jugador con un click", msj)
 }
 
+/**
+ * Función que incrementa el valor para mostrar el siguiente
+ */
 function siguiente(){
     if(valor != 9){
         valor = valor+1;
@@ -401,6 +446,9 @@ function siguiente(){
     Plantilla.procesarJugadoresDatosClick();
 }
 
+/**
+ * Función que decrementa el valor para mostrar el anterior
+ */
 function anterior(){
     if(valor != 0){
         valor = valor-1;
@@ -423,34 +471,43 @@ Plantilla.procesarAcercaDe = function () {
 }
 
 /**
- * Función principal para responder al evento de elegir la opción "Listar nombres Jugadores/Equipos"
+ * Función principal para responder al evento de elegir la opción "Listar nombres Jugadores"
  */
 Plantilla.procesarlistaJugadoresEquipos = function () {
     this.descargarRuta("/plantilla/listaJugadoresEquipos", this.mostrarJugadoresEquipos);
 }
 
 /**
- * Función principal para responder al evento de elegir la opción "Listar datos Jugadores/Equipos"
+ * Función principal para responder al evento de elegir la opción "Listar datos Jugadores"
  */
 Plantilla.procesarlistaDatosJugadores = function () {
     this.descargarRuta("/plantilla/listaJugadoresEquiposTodos", this.mostrarJugadoresDatos);
 }
 
 /**
- * 
+ * Función principal para responder al evento de elegir la opción "Listar nombres alfabéticamente"
  */
 Plantilla.procesarJugadoresAlfabetica = function () {
     this.descargarRuta("/plantilla/listaJugadoresAlfabetica", this.mostrarJugadoresAlfabetica);
 }
 
+/**
+ * Función principal para responder al evento de elegir la opción "Listar datos por campo"
+ */
 Plantilla.procesarJugadoresPorCampo = function () {
     this.descargarRuta("/plantilla/listaJugadoresPorCampo", this.mostrarJugadoresPorCampo);
 }
 
+/**
+ * Función principal para responder al evento de elegir la opción "Listar datos de un jugador"
+ */
 Plantilla.procesarJugadoresDatosUno = function () {
     this.descargarRuta("/plantilla/listaJugadoresDatosUno", this.mostrarJugadoresDatosUno);
 }
 
+/**
+ * Función principal para responder al evento de elegir la opción "Listar datos de un jugador con un click"
+ */
 Plantilla.procesarJugadoresDatosClick = function () {
     this.descargarRuta("/plantilla/listaJugadoresDatosClick", this.mostrarJugadoresDatosClick);
 }

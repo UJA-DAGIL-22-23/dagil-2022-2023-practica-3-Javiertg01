@@ -121,3 +121,27 @@ it('Devuelve un vector de tamaño 10 al consultar mediante listaJugadoresPorCamp
     .end((error) => {error ? done.fail(error) : done(); }
     );
 });
+
+it('Devuelve un vector de tamaño 10 al consultar mediante listaJugadoresDatosUno', (done) => {
+  supertest(app)
+    .get('/listaJugadoresDatosUno')
+    .expect(200)
+    .expect('Content-Type', /json/)
+    .expect(function (res) {
+      assert(res.body.data.length === 10);
+    })
+    .end((error) => {error ? done.fail(error) : done(); }
+    );
+});
+
+it('Devuelve un vector de tamaño 10 al consultar mediante listaJugadoresDatosClick', (done) => {
+  supertest(app)
+    .get('/listaJugadoresDatosClick')
+    .expect(200)
+    .expect('Content-Type', /json/)
+    .expect(function (res) {
+      assert(res.body.data.length === 10);
+    })
+    .end((error) => {error ? done.fail(error) : done(); }
+    );
+});
