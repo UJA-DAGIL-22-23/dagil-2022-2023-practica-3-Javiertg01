@@ -240,10 +240,29 @@ https://trello.com/b/R17z9WeZ/desarrollo-%C3%A1gil-pr%C3%A1ctica-3
 }
 ```
 ## Incremento 1
-Funcionalidades a implementar:
-- Boton "Acerca De": Al pulsar el botón de "Acerca de" se desplegará la información del autor de la aplicación
+Funcionalidades a implementar:<br />
+**Inicio:**
+![Incremento1Inicio](./assets/img/Trello_inicio_incremento1.png)
+**Final:**
+![Incremento1Final](./assets/img/Trello_fin_incremento1.png)
+- **Boton "Acerca De":** Al pulsar el botón de "Acerca de" se desplegará la información del autor de la aplicación
 ![AcercaDe](./assets/img/Acerca_de.png)
-- Listado de nombres de jugadores: Al pulsar el botón de "Lista nombres jugadores" se desplegará una lista con solo los nombres de los jugadores
+- **Listado de nombres de jugadores:** Al pulsar el botón de "Listar nombres jugadores" se desplegará una lista con solo los nombres de los jugadores
 ![ListaNombres](./assets/img/Lista_nombres.png)
-- Listado de datos de jugadores: Al pulsar el botón de "Lista datos jugadores" se desplegará una lista con todos los datos de los jugadores (nombre, apellido, equipo, años de participación en los JJOO, fecha de nacimiento y partidos jugados en la selección)
+- **Listado de datos de jugadores:** Al pulsar el botón de "Listar datos jugadores" se desplegará una lista con todos los datos de los jugadores (nombre, apellido, equipo, años de participación en los JJOO, fecha de nacimiento y partidos jugados en la selección)
 ![ListaDatos](./assets/img/Lista_datos.png)
+
+## Incremento 2
+Funcionalidades a implementar:<br />
+**Inicio:**
+![Incremento2Inicio](./assets/img/Trello_inicio_incremento2.png)
+**Final:**
+![Incremento2Final](./assets/img/Trello_fin_incremento2.png)
+- **Listado de nombres de jugadores alfabéticamente:** Al pulsar el botón de "Listar nombres jugadores alfabéticamente" se desplegará una lista con solo los nombres de los jugadores ordenados alfabéticamente
+![ListaNombresAlfabeticamente](./assets/img/Alfabeticamente.png)
+- **Listado de datos de jugadores ordenados por campo:** Al pulsar el botón de "Listar datos por campo" se desplegará una lista con los datos de todos los jugadores, que podremos ordenar por cualquiera de los campos mediante un selector
+![ListaDatosPorCampo](./assets/img/por_campo.png)
+- **Listado de datos de un jugador determinado:** Al pulsar el botón de "Listar datos de un jugador" se desplegará una tabla con los datos de el jugador que seleccionemos
+![ListaDatosJugador](./assets/img/Datos_jugador.png)
+- **Listado de datos de un jugador determinado con un solo click:** Al pulsar el botón de "Listar datos de un jugador con un click" se desplegará una tabla con los datos de el jugador que seleccionemos, pudiendo clickar en _siguiente_ o _anterior_ para cambiar de jugador
+![ListaDatosJugadorClick](./assets/img/Datos_un_click.png)
