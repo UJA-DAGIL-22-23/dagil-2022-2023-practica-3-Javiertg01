@@ -112,5 +112,13 @@ router.get("/listaJugadoresFiltro", async (req, res) => {
     }
 });
 
+router.get("/listaJugadoresFiltroCampos", async (req, res) => {
+    try {
+        await callbacks.listaJugadoresFiltroCampos(req, res)
+    } catch (error) {
+        console.log(error);
+    }
+});
+
 // Exporto el módulo para poder usarlo en server
 module.exports = router;

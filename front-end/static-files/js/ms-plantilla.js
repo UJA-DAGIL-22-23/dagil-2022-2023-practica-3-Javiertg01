@@ -436,43 +436,6 @@ Plantilla.mostrarJugadoresDatosClick = function (datosDescargados) {
     Frontend.Article.actualizar("Plantilla Lista Datos Jugador con un click", msj)
 }
 
-let clave = null;
-/**
- * 
- * @param {*} datosDescargados 
- */
-Plantilla.mostrarJugadoresFiltro = function (datosDescargados) {   
-    let msj = "";
-    msj += `<form onsubmit="filtro()">
-    <input type="text" id="myInput" placeholder="Filtro..." title="Escribe un nombre">
-    <input type="submit">
-    </form>
-    `
-
-    var DatosFiltrados = aplicarFiltro(datosDescargados.data);
-    DatosFiltrados.forEach(e => msj += Plantilla.cuerpoTodosDatosTr(e))
-    Frontend.Article.actualizar("Plantilla Lista Datos Jugador con un click", msj)
-}
-
-function filtro(){
-    var input
-    input = document.getElementById("myInput");
-    clave = input.value.toLowerCase();
-    Plantilla.procesarJugadoresFiltro();
-}
-
-function aplicarFiltro(data){
-    if(clave!=null){
-        for(var i=0; i<data.length; i++){
-            if(data[i].data.nombre.toLowerCase().includes(clave)){
-            }else{
-                delete data[i];
-            }
-        }
-    }
-    return data;
-}
-
 /**
  * Función que incrementa el valor para mostrar el siguiente
  */
@@ -491,6 +454,134 @@ function anterior(){
         valor = valor-1;
     }
     Plantilla.procesarJugadoresDatosClick();
+}
+
+let clave = null;
+/**
+ * 
+ * @param {*} datosDescargados 
+ */
+Plantilla.mostrarJugadoresFiltro = function (datosDescargados) {   
+    let msj = "";
+    msj += `<form onsubmit="filtroNombre()">
+    <input type="text" id="myInput" placeholder="Filtro..." title="Escribe un nombre">
+    <input type="submit">
+    </form>
+    `
+
+    var DatosFiltrados = aplicarFiltroNombre(datosDescargados.data);
+    DatosFiltrados.forEach(e => msj += Plantilla.cuerpoTodosDatosTr(e))
+    Frontend.Article.actualizar("Plantilla Lista Datos Jugador filtrando por nombre", msj)
+}
+
+function filtroNombre(){
+    var input
+    input = document.getElementById("myInput");
+    clave = input.value.toLowerCase();
+    Plantilla.procesarJugadoresFiltro();
+}
+
+function aplicarFiltroNombre(data){
+    if(clave!=null){
+        for(var i=0; i<data.length; i++){
+            if(data[i].data.nombre.toLowerCase().includes(clave)){
+            }else{
+                delete data[i];
+            }
+        }
+    }
+    return data;
+}
+
+let tipo = null;
+Plantilla.mostrarJugadoresFiltroCampos = function(datosDescargados) {
+    let msj = "";
+    msj += `<form onsubmit="filtroApellido()">
+    <input type="text" id="inputApellido" placeholder="Apellido..." title="Escribe un apellido">
+    <input type="submit">
+    </form>
+    <form onsubmit="filtroEquipo()">
+    <input type="text" id="inputEquipo" placeholder="Equipo..." title="Escribe un equipo">
+    <input type="submit">
+    </form>
+    <form onsubmit="filtroFecha()">
+    <input type="number" id="inputFecha" value="2023" min="1900" max="2023" title="Escribe una fecha">
+    <input type="submit">
+    </form>
+    `
+    var DatosFiltrados = datosDescargados.data;
+    if(tipo==='apellido'){
+        var DatosFiltrados = aplicarFiltroApellido(datosDescargados.data);
+    }
+    if(tipo==='equipo'){
+        var DatosFiltrados = aplicarFiltroEquipo(datosDescargados.data);
+    }
+    if(tipo==='fecha'){
+        var DatosFiltrados = aplicarFiltroFecha(datosDescargados.data);
+    }
+    DatosFiltrados.forEach(e => msj += Plantilla.cuerpoTodosDatosTr(e))
+    Frontend.Article.actualizar("Plantilla Lista Datos Jugador filtrando por uno de los campos", msj)
+}
+
+function filtroApellido(){
+    var input
+    input = document.getElementById("inputApellido");
+    clave = input.value.toLowerCase();
+    tipo = 'apellido';
+    Plantilla.procesarJugadoresFiltroCampos();
+}
+
+function aplicarFiltroApellido(data){
+    if(clave!=null){
+        for(var i=0; i<data.length; i++){
+            if(data[i].data.apellido.toLowerCase().includes(clave)){
+            }else{
+                delete data[i];
+            }
+        }
+    }
+    return data;
+}
+
+function filtroEquipo(){
+    var input
+    input = document.getElementById("inputEquipo");
+    clave = input.value.toLowerCase();
+    tipo = 'equipo';
+    Plantilla.procesarJugadoresFiltroCampos();
+}
+
+function aplicarFiltroEquipo(data){
+    if(clave!=null){
+        for(var i=0; i<data.length; i++){
+            if(data[i].data.equipo.toLowerCase().includes(clave)){
+            }else{
+                delete data[i];
+            }
+        }
+    }
+    return data;
+}
+
+function filtroFecha(){
+    var input
+    input = document.getElementById("inputFecha");
+    clave = input.value;
+    tipo = 'fecha';
+    Plantilla.procesarJugadoresFiltroCampos();
+}
+
+function aplicarFiltroFecha(data){
+    if(clave!=null){
+        for(var i=0; i<data.length; i++){
+            console.log(data[i].data.f_nacimiento.anio)
+            if(data[i].data.f_nacimiento.anio > clave){
+            }else{
+                delete data[i];
+            }
+        }
+    }
+    return data;
 }
 
 /**
@@ -554,4 +645,11 @@ Plantilla.procesarJugadoresDatosClick = function () {
  */
 Plantilla.procesarJugadoresFiltro = function () {
     this.descargarRuta("/plantilla/listaJugadoresFiltro", this.mostrarJugadoresFiltro);
+}
+
+/**
+ * 
+ */
+Plantilla.procesarJugadoresFiltroCampos = function () {
+    this.descargarRuta("/plantilla/listaJugadoresFiltroCampos", this.mostrarJugadoresFiltroCampos);
 }
