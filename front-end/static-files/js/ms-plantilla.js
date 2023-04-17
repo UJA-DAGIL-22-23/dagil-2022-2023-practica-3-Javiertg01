@@ -436,6 +436,43 @@ Plantilla.mostrarJugadoresDatosClick = function (datosDescargados) {
     Frontend.Article.actualizar("Plantilla Lista Datos Jugador con un click", msj)
 }
 
+let clave = null;
+/**
+ * 
+ * @param {*} datosDescargados 
+ */
+Plantilla.mostrarJugadoresFiltro = function (datosDescargados) {   
+    let msj = "";
+    msj += `<form onsubmit="filtro()">
+    <input type="text" id="myInput" placeholder="Filtro..." title="Escribe un nombre">
+    <input type="submit">
+    </form>
+    `
+
+    var DatosFiltrados = aplicarFiltro(datosDescargados.data);
+    DatosFiltrados.forEach(e => msj += Plantilla.cuerpoTodosDatosTr(e))
+    Frontend.Article.actualizar("Plantilla Lista Datos Jugador con un click", msj)
+}
+
+function filtro(){
+    var input
+    input = document.getElementById("myInput");
+    clave = input.value.toLowerCase();
+    Plantilla.procesarJugadoresFiltro();
+}
+
+function aplicarFiltro(data){
+    if(clave!=null){
+        for(var i=0; i<data.length; i++){
+            if(data[i].data.nombre.toLowerCase().includes(clave)){
+            }else{
+                delete data[i];
+            }
+        }
+    }
+    return data;
+}
+
 /**
  * Función que incrementa el valor para mostrar el siguiente
  */
@@ -510,4 +547,11 @@ Plantilla.procesarJugadoresDatosUno = function () {
  */
 Plantilla.procesarJugadoresDatosClick = function () {
     this.descargarRuta("/plantilla/listaJugadoresDatosClick", this.mostrarJugadoresDatosClick);
+}
+
+/**
+ * 
+ */
+Plantilla.procesarJugadoresFiltro = function () {
+    this.descargarRuta("/plantilla/listaJugadoresFiltro", this.mostrarJugadoresFiltro);
 }
