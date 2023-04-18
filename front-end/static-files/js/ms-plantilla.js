@@ -574,7 +574,6 @@ function filtroFecha(){
 function aplicarFiltroFecha(data){
     if(clave!=null){
         for(var i=0; i<data.length; i++){
-            console.log(data[i].data.f_nacimiento.anio)
             if(data[i].data.f_nacimiento.anio > clave){
             }else{
                 delete data[i];
