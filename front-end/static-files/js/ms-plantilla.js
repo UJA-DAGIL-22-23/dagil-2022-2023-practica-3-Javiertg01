@@ -198,13 +198,8 @@ Plantilla.mostrarJugadoresAlfabetica = function (datosDescargados) {
 
 let campo = 'nombre';
 
-/**
- * Muestra un listado de datos de jugadores que podemos ordenar por campos
- * @param {*} datosDescargados 
- */
-Plantilla.mostrarJugadoresPorCampo = function (datosDescargados) {
-    let msj = "";
-    msj += `<select id="opcionCampo" name="Campo" onchange="cambiarOpcionCampo()">
+Plantilla.cabeceraPorCampo = function () {
+    return `<select id="opcionCampo" name="Campo" onchange="cambiarOpcionCampo()">
     <option>-Seleccione campo-</option>
     <option value="nombre">Nombre</option>
     <option value="apellido">Apellido</option>
@@ -212,7 +207,16 @@ Plantilla.mostrarJugadoresPorCampo = function (datosDescargados) {
     <option value="f_nacimiento">Fecha de Nacimiento</option>
     <option value="partidos_jugados">Partidos Jugados</option>
     <option value="anios_participaciones_jjoo">A&ntildeos participaciones JJOO</option>
-    </select>`
+    </select>`;
+}
+
+/**
+ * Muestra un listado de datos de jugadores que podemos ordenar por campos
+ * @param {*} datosDescargados 
+ */
+Plantilla.mostrarJugadoresPorCampo = function (datosDescargados) {
+    let msj = "";
+    msj += Plantilla.cabeceraPorCampo();
     var datosOrdenados = sortNombre(datosDescargados.data);
     if(campo === 'nombre'){
         var datosOrdenados = sortNombre(datosDescargados.data);
@@ -357,13 +361,8 @@ function sortJJOO(data) {
       });
 }
 
-/**
- * Muestra los datos de un solo jugador a elección
- * @param {*} datosDescargados 
- */
-Plantilla.mostrarJugadoresDatosUno = function (datosDescargados) {   
-    let msj = "";
-    msj += `<select id="opcionNombre" name="Nombre" onchange="cambiarOpcionNombre()">
+Plantilla.cabeceraDatosUno = function () {
+    return `<select id="opcionNombre" name="Nombre" onchange="cambiarOpcionNombre()">
     <option>-Seleccione Jugador-</option>
     <option value="david">David</option>
     <option value="alejandro">Alejandro</option>
@@ -375,7 +374,16 @@ Plantilla.mostrarJugadoresDatosUno = function (datosDescargados) {
     <option value="alvaro">&Aacutelvaro</option>
     <option value="xavi">Xavi</option>
     <option value="roc">Roc</option>
-    </select>`
+    </select>`;
+}
+
+/**
+ * Muestra los datos de un solo jugador a elección
+ * @param {*} datosDescargados 
+ */
+Plantilla.mostrarJugadoresDatosUno = function (datosDescargados) {   
+    let msj = "";
+    msj += Plantilla.cabeceraDatosUno();
     var i = 0;
     if(campo === 'david'){
         i = 0;
@@ -422,6 +430,12 @@ function cambiarOpcionNombre(){
 
 let valor = 0; //constante para moverse entre los nombres con Anterior y Siguiente
 
+Plantilla.cabeceraDatosClick = function () {
+    return `<button id="previo" onclick="anterior()">&laquo; Anterior</button>
+    <button id="siguiente" onclick="siguiente()">Siguiente &raquo;</button>
+    `;
+}
+
 /**
  * Muestra los datos de un solo jugador a elección permitiendo cambiar entre el siguiente
  * y el anterior con un solo click
@@ -429,9 +443,7 @@ let valor = 0; //constante para moverse entre los nombres con Anterior y Siguien
  */
 Plantilla.mostrarJugadoresDatosClick = function (datosDescargados) {   
     let msj = "";
-    msj += `<button id="previo" onclick="anterior()">&laquo; Anterior</button>
-    <button id="siguiente" onclick="siguiente()">Siguiente &raquo;</button>
-    `
+    msj += Plantilla.cabeceraDatosClick();
     msj += Plantilla.cuerpoTodosDatosTr(datosDescargados.data[valor])
     Frontend.Article.actualizar("Plantilla Lista Datos Jugador con un click", msj)
 }
@@ -457,23 +469,31 @@ function anterior(){
 }
 
 let clave = null;
+
+Plantilla.cabeceraFiltro = function () {
+    return `
+    <input type="text" id="myInput" placeholder="Filtro..." title="Escribe un nombre">
+    <button onclick="filtroNombre()">Filtrar Nombre</button>
+    `;
+}
+
 /**
- * 
+ * Muestra los datos de los jugadores cuyo nombre cumpla el filtro aplicado
  * @param {*} datosDescargados 
  */
 Plantilla.mostrarJugadoresFiltro = function (datosDescargados) {   
     let msj = "";
-    msj += `<form onsubmit="filtroNombre()">
-    <input type="text" id="myInput" placeholder="Filtro..." title="Escribe un nombre">
-    <input type="submit">
-    </form>
-    `
-
+    msj += Plantilla.cabeceraFiltro();
+    //console.log(datosDescargados.data[0].data);
     var DatosFiltrados = aplicarFiltroNombre(datosDescargados.data);
-    DatosFiltrados.forEach(e => msj += Plantilla.cuerpoTodosDatosTr(e))
-    Frontend.Article.actualizar("Plantilla Lista Datos Jugador filtrando por nombre", msj)
+    console.log(DatosFiltrados);
+    DatosFiltrados.forEach(e => msj += Plantilla.cuerpoTodosDatosTr(e));
+    Frontend.Article.actualizar("Plantilla Lista Datos Jugador filtrando por nombre", msj);
 }
 
+/**
+ * Función llamada cada vez se envía un filtro nuevo en "mostrarJugadoresFiltro"
+ */
 function filtroNombre(){
     var input
     input = document.getElementById("myInput");
@@ -481,6 +501,11 @@ function filtroNombre(){
     Plantilla.procesarJugadoresFiltro();
 }
 
+/**
+ * Función que deja solo los datos de los jugadores que cumplen con el filtro
+ * @param {*} data 
+ * @returns 
+ */
 function aplicarFiltroNombre(data){
     if(clave!=null){
         for(var i=0; i<data.length; i++){
@@ -493,22 +518,27 @@ function aplicarFiltroNombre(data){
     return data;
 }
 
+Plantilla.cabeceraFiltroCampos = function () {
+    return `
+    <input type="text" id="inputApellido" placeholder="Apellido..." title="Escribe un apellido">
+    <button onclick="filtroApellido()">Filtrar Apellido</button>
+    <br>
+    <input type="text" id="inputEquipo" placeholder="Equipo..." title="Escribe un equipo">
+    <button onclick="filtroEquipo()">Filtrar Equipo</button>
+    <br>
+    <input type="number" id="inputFecha" value="2023" min="1900" max="2023" title="Escribe una fecha">
+    <button onclick="filtroFecha()">Filtrar Fecha Nacimiento</button>
+    `;
+}
+
 let tipo = null;
+
+/**
+ * 
+ */
 Plantilla.mostrarJugadoresFiltroCampos = function(datosDescargados) {
     let msj = "";
-    msj += `<form onsubmit="filtroApellido()">
-    <input type="text" id="inputApellido" placeholder="Apellido..." title="Escribe un apellido">
-    <input type="submit">
-    </form>
-    <form onsubmit="filtroEquipo()">
-    <input type="text" id="inputEquipo" placeholder="Equipo..." title="Escribe un equipo">
-    <input type="submit">
-    </form>
-    <form onsubmit="filtroFecha()">
-    <input type="number" id="inputFecha" value="2023" min="1900" max="2023" title="Escribe una fecha">
-    <input type="submit">
-    </form>
-    `
+    msj += Plantilla.cabeceraFiltroCampos();
     var DatosFiltrados = datosDescargados.data;
     if(tipo==='apellido'){
         var DatosFiltrados = aplicarFiltroApellido(datosDescargados.data);
@@ -524,7 +554,7 @@ Plantilla.mostrarJugadoresFiltroCampos = function(datosDescargados) {
 }
 
 function filtroApellido(){
-    var input
+    var input;
     input = document.getElementById("inputApellido");
     clave = input.value.toLowerCase();
     tipo = 'apellido';

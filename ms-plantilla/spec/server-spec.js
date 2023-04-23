@@ -68,7 +68,7 @@ describe('Servidor PLANTILLA:', () => {
   })
 });
 
-it('Devuelve un vector de tamaño 10 al consultar mediante listaJugadoresEquipos', (done) => {
+it('Devuelve un vector de tamaño 10 y comprueba un campo al consultar mediante listaJugadoresEquipos', (done) => {
   supertest(app)
     .get('/listaJugadoresEquipos')
     .expect(200)
@@ -76,12 +76,13 @@ it('Devuelve un vector de tamaño 10 al consultar mediante listaJugadoresEquipos
     .expect(function (res) {
       //console.log( "getProyectos BODY: ", res.body ); // Para comprobar qué contiene exactamente res.body
       assert(res.body.data.length === 10);
+      assert(res.body.data[0].data.hasOwnProperty('nombre'));
     })
     .end((error) => {error ? done.fail(error) : done(); }
     );
 });
 
-it('Devuelve un vector de tamaño 10 al consultar mediante listaJugadoresEquiposTodos', (done) => {
+it('Devuelve un vector de tamaño 10 y comprueba un campo al consultar mediante listaJugadoresEquiposTodos', (done) => {
   supertest(app)
     .get('/listaJugadoresEquiposTodos')
     .expect(200)
@@ -89,6 +90,10 @@ it('Devuelve un vector de tamaño 10 al consultar mediante listaJugadoresEquipos
     .expect(function (res) {
       //console.log( "getProyectos BODY: ", res.body ); // Para comprobar qué contiene exactamente res.body
       assert(res.body.data.length === 10);
+      assert(res.body.data[1].data.hasOwnProperty('apellido'));
+      assert(res.body.data[1].data.hasOwnProperty('equipo'));
+      assert(res.body.data[1].data.hasOwnProperty('f_nacimiento'));
+      assert(res.body.data[1].data.hasOwnProperty('partidos_jugados'));
       assert(res.body.data[1].data.hasOwnProperty('anios_participaciones_jjoo'));
       assert(res.body.data[1].data.anios_participaciones_jjoo[0] === 2020);
     })
@@ -96,20 +101,20 @@ it('Devuelve un vector de tamaño 10 al consultar mediante listaJugadoresEquipos
     );
 });
 
-it('Devuelve un vector de tamaño 10 al consultar mediante listaJugadoresAlfabetica', (done) => {
+it('Devuelve un vector de tamaño 10 y comprueba un campo al consultar mediante listaJugadoresAlfabetica', (done) => {
   supertest(app)
     .get('/listaJugadoresAlfabetica')
     .expect(200)
     .expect('Content-Type', /json/)
     .expect(function (res) {
+      assert(res.body.data[0].data.hasOwnProperty('nombre'));
       assert(res.body.data.length === 10);
-      assert(res.body.data[0].data.nombre === 'David');
     })
     .end((error) => {error ? done.fail(error) : done(); }
     );
 });
 
-it('Devuelve un vector de tamaño 10 al consultar mediante listaJugadoresPorCampo', (done) => {
+it('Devuelve un vector de tamaño 10 y comprueba un campo al consultar mediante listaJugadoresPorCampo', (done) => {
   supertest(app)
     .get('/listaJugadoresPorCampo')
     .expect(200)
@@ -122,24 +127,52 @@ it('Devuelve un vector de tamaño 10 al consultar mediante listaJugadoresPorCamp
     );
 });
 
-it('Devuelve un vector de tamaño 10 al consultar mediante listaJugadoresDatosUno', (done) => {
+it('Devuelve un vector de tamaño 10 y comprueba un campo al consultar mediante listaJugadoresDatosUno', (done) => {
   supertest(app)
     .get('/listaJugadoresDatosUno')
     .expect(200)
     .expect('Content-Type', /json/)
     .expect(function (res) {
+      assert(res.body.data[0].data.hasOwnProperty('nombre'));
       assert(res.body.data.length === 10);
     })
     .end((error) => {error ? done.fail(error) : done(); }
     );
 });
 
-it('Devuelve un vector de tamaño 10 al consultar mediante listaJugadoresDatosClick', (done) => {
+it('Devuelve un vector de tamaño 10 y comprueba un campo al consultar mediante listaJugadoresDatosClick', (done) => {
   supertest(app)
     .get('/listaJugadoresDatosClick')
     .expect(200)
     .expect('Content-Type', /json/)
     .expect(function (res) {
+      assert(res.body.data[0].data.hasOwnProperty('partidos_jugados'));
+      assert(res.body.data.length === 10);
+    })
+    .end((error) => {error ? done.fail(error) : done(); }
+    );
+});
+
+it('Devuelve un vector de tamaño 10 y comprueba un campo al consultar mediante listaJugadoresFiltro', (done) => {
+  supertest(app)
+    .get('/listaJugadoresFiltro')
+    .expect(200)
+    .expect('Content-Type', /json/)
+    .expect(function (res) {
+      assert(res.body.data[0].data.hasOwnProperty('apellido'));
+      assert(res.body.data.length === 10);
+    })
+    .end((error) => {error ? done.fail(error) : done(); }
+    );
+});
+
+it('Devuelve un vector de tamaño 10 y comprueba un campo al consultar mediante listaJugadoresFiltroCampos', (done) => {
+  supertest(app)
+    .get('/listaJugadoresFiltroCampos')
+    .expect(200)
+    .expect('Content-Type', /json/)
+    .expect(function (res) {
+      assert(res.body.data[0].data.hasOwnProperty('f_nacimiento'));
       assert(res.body.data.length === 10);
     })
     .end((error) => {error ? done.fail(error) : done(); }

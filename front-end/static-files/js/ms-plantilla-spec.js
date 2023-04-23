@@ -193,6 +193,61 @@ describe("cuerpoTodosDatosTr ", function () {
         });
 });
 
+describe("CabeceraPorCampo ", function () {
+    it("debería devolver las etiquetas HTML para la cabecera por campo",
+        function () {
+            expect(Plantilla.cabeceraPorCampo()).toContain("<select");
+            expect(Plantilla.cabeceraPorCampo()).toContain("<option>");
+            expect(Plantilla.cabeceraPorCampo()).toContain("</select>");
+        });
+});
+
+describe("CabeceraPorCampo ", function () {
+    it("debería devolver las etiquetas HTML para la cabecera por campo",
+        function () {
+            expect(Plantilla.cabeceraPorCampo()).toContain("<select");
+            expect(Plantilla.cabeceraPorCampo()).toContain("<option>");
+            expect(Plantilla.cabeceraPorCampo()).toContain("</select>");
+        });
+});
+
+describe("CabeceraDatosUno ", function () {
+    it("debería devolver las etiquetas HTML para la cabecera datos de un jugador",
+        function () {
+            expect(Plantilla.cabeceraDatosUno()).toContain('<select id="opcionNombre"');
+            expect(Plantilla.cabeceraDatosUno()).toContain("<option>");
+            expect(Plantilla.cabeceraDatosUno()).toContain("</select>");
+        });
+});
+
+describe("CabeceraDatosClick ", function () {
+    it("debería devolver las etiquetas HTML para la cabecera datos cambiando con un solo click",
+        function () {
+            expect(Plantilla.cabeceraDatosClick()).toContain('<button id="previo"');
+            expect(Plantilla.cabeceraDatosClick()).toContain('<button id="siguiente"');
+            expect(Plantilla.cabeceraDatosClick()).toContain("</button>");
+        });
+});
+
+describe("CabeceraFiltro ", function () {
+    it("debería devolver las etiquetas HTML para la cabecera datos con filtro",
+        function () {
+            expect(Plantilla.cabeceraFiltro()).toContain('<input type="text" id="myInput" placeholder="Filtro..." title="Escribe un nombre">');
+            expect(Plantilla.cabeceraFiltro()).toContain('<button onclick="filtroNombre()">');
+        });
+});
+
+describe("CabeceraFiltroCampos ", function () {
+    it("debería devolver las etiquetas HTML para la cabecera datos con filtro",
+        function () {
+            expect(Plantilla.cabeceraFiltroCampos()).toContain('<input type="text" id="inputApellido"');
+            expect(Plantilla.cabeceraFiltroCampos()).toContain('<button onclick="filtroApellido()">');
+            expect(Plantilla.cabeceraFiltroCampos()).toContain('<input type="text" id="inputEquipo"');
+            expect(Plantilla.cabeceraFiltroCampos()).toContain('<button onclick="filtroEquipo()">');
+            expect(Plantilla.cabeceraFiltroCampos()).toContain('<input type="number" id="inputFecha"');
+            expect(Plantilla.cabeceraFiltroCampos()).toContain('<button onclick="filtroFecha()">');
+        });
+});
 
 /*
 IMPORTANTE
