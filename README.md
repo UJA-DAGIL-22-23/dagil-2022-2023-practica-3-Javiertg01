@@ -267,3 +267,14 @@ Funcionalidades a implementar:<br />
 ![ListaDatosJugador](./assets/img/Datos_jugador.png)
 - **Listado de datos de un jugador determinado con un solo click:** Al pulsar el botón de "Listar datos de un jugador con un click" se desplegará una tabla con los datos de el jugador que seleccionemos, pudiendo clickar en _siguiente_ o _anterior_ para cambiar de jugador
 ![ListaDatosJugadorClick](./assets/img/Datos_un_click.png)
+
+## Incremento 3
+Funcionalidades a implementar:<br />
+**Inicio:**
+![Incremento3Inicio](./assets/img/Trello_inicio_incremento3.png)
+**Final:**
+![Incremento3Final](./assets/img/Trello_fin_incremento3.png)
+- **Listado de datos de jugadores filtrados por el nombre:** Al pulsar el botón de "Listar datos con filtro" se desplegará una lista con los datos de los jugadores, y una caja de texto en la que podemos meter una cadena de palabras, que al pulsar el botón _Filtrar Nombre_ se aplicará
+![ListaNombresAlfabeticamente](./assets/img/filtroNombre.png)
+- **Listado de datos de jugadores filtrados por 3 campos diferentes al nombre:** Al pulsar el botón de "Listar datos con filtro diferentes campos" se desplegará una lista con los datos de los jugadores, y 3 cajas de texto que nos permitirán filtrar por Apellido, equipo y fecha de nacimiento (mayores a la fecha introducida)
+![ListaDatosPorCampo](./assets/img/filtroCampos.png)
